@@ -160,7 +160,7 @@
   </html>
 </div>
 <div v-else>
-  <h2>{{ userGroup }} Can't Access this Page </h2>
+  <h2 style="margin-left: 40%;">{{ userGroup }} Can't Access this Page </h2>
 
 </div>
 </template>
