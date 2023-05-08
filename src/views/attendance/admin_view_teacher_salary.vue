@@ -1,0 +1,88 @@
+<template>
+<head>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+</head>
+
+<div class="container">
+
+<div class="row">
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">Teachers Salary</h6>
+
+    </div>
+    <table class="table table-hover table-striped table-bordered" id="dev-table">
+      <thead>
+
+        <tr>
+          <th>Teacher's Name</th>
+
+          <th>Salary</th>
+
+        </tr>
+      </thead>
+     
+      <tr v-for="teacher in teachers" :key="teacher.id">
+        <td> {{ teacher.first_name  }} {{ teacher.last_name }}</td>
+        <td>{{ teacher.salary }} $</td>
+      </tr>
+
+    </table>
+  </div>
+</div>
+<button class="backbutton" onclick="history.back()"> Back</button>
+</div>
+  
+</template>
+
+<script>
+  import axios from 'axios'
+  export default {
+    data() {
+        return {
+          teachers: [],
+          
+        }
+    },
+  
+    async mounted() {
+        console.log('mounted')
+
+        this.getTeachers()
+    },
+    methods: {
+      getTeachers() {
+            axios
+                .get(`/attendance/ad_view_teachers/`)
+                .then(response => {
+                    console.log(response.data)
+                    
+                    this.teachers = response.data
+                  
+
+                    
+                })
+        }
+    }
+};
+
+</script>
+
+
+
+
+<style media="screen">
+  a:link {
+    text-decoration: none;
+  }
+
+  h6 {
+    text-align: center;
+  }
+
+  .row {
+    margin: 100px;
+  }
+</style>
