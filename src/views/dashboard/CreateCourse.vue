@@ -27,6 +27,11 @@
                 </div>
 
                 <div class="field">
+                    <label>Image:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input type="file" @change="handleFileUpload">
+                </div>
+            
+                <div class="field">
                     <div class="select is-multiple">
                         <select multiple size="3" v-model="form.categories">
                             <option 
@@ -71,16 +76,6 @@
                         <textarea class="textarea" v-model="lesson.long_description" :name="`form.lessons[${index}][long_description]`"></textarea>
                     </div>
 
-                   <!--  <div class="field">
-                        <label>Lesson Type</label>
-                        <input 
-                            type="text" 
-                            class="input" 
-                            v-model="lesson.lesson_type"
-                            :name="`form.lessons[${index}][lesson_type]`"
-                        >
-                    </div> -->
-
                     <div class="field">
                         <label>Lesson Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <div class="select">
@@ -90,16 +85,6 @@
                             </select>
                         </div>
                     </div>
-
-                  <!--   <div class="field">
-                        <label>Lesson Type</label>
-                        <div class="select">
-                            <select v-model="lesson.lesson_type" :name="`form.lessons[${index}][lesson_type]`">
-                            <option value="video">Video</option>
-                            <option value="article">Article</option>
-                            </select>
-                        </div>
-                    </div> -->
 
 
                     <div class="field">
@@ -146,6 +131,7 @@ export default {
                 lesson_type: '', */
                 categories: [],
                 status: '',
+                image: null,
                 lessons: []
             },
 
@@ -176,14 +162,26 @@ export default {
                     this.categories = response.data
                 })
         },
+        handleFileUpload(event) {
+            this.form.image = event.target.files[0];
+        },
         submitForm(status) {
             console.log('submitForm')
             console.log(this.form)
 
+            const formData = new FormData();
+            formData.append('title', this.form.title);
+            formData.append('short_description', this.form.short_description);
+            formData.append('long_description', this.form.long_description);
+            formData.append('image', this.form.image);
+            formData.append('status', this.form.status);
+            formData.append('categories', this.form.categories );
             this.form.status = status
+            
+
 
             axios
-                .post('courses/create/', this.form)
+                .post('courses/create/', formData)
                 .then(response => {
                     console.log(response.data)
                 })
