@@ -58,6 +58,8 @@
                         <option value="nine" >Nine</option>
                         <option value="ten" >Ten</option>
                       </select>
+                      <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Image:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                      <input type="file" @change="handleFileUpload">
                 </div>
               </div>
 
@@ -138,6 +140,7 @@
               Class:'',
               roll:'',
               status:'',
+              image: null,
               group: 'STUDENT',
               errors: []
           }
@@ -146,20 +149,29 @@
           document.title = 'ADD STUDENT | StudyNet'
       },
       methods: {
+          handleFileUpload(event) {
+              this.image = event.target.files[0];
+          },
           submitForm() {
               console.log('submitForm')
               this.errors = []
               if (this.username === '') {
                   this.errors.push('The username is missing!')
               }
-            /*   if (this.password === '') {
-                  this.errors.push('The password is missing!')
-              }
-              if (this.password !== this.password2) {
-                  this.errors.push('The passwords are not matching!')
-              } */
+           
               if (!this.errors.length) {
-                  const FormData = {
+                const formData = new FormData();
+                formData.append('first_name', this.firstname);
+                formData.append('last_name', this.lastname);
+                formData.append('username', this.username);
+                formData.append('password', this.password);
+                formData.append('roll', this.roll);
+                formData.append('cl', this.Class );
+                formData.append('mobile', this.contact);
+                formData.append('fee', this.fee);
+                formData.append('status', this.status);
+                formData.append('image', this.image ); 
+                /* const FormData = {
                       first_name: this.firstname,
                       last_name: this.lastname,
                       username: this.username,
@@ -168,13 +180,14 @@
                       cl:  this.Class,
                       mobile: this.contact,
                       fee: this.fee,
-                      status:this.status        
-                      
-                    
-                  }
+                      status:this.status,
+                      image: this.image                                             
+                  } */
+
+                  /* FormData.append('image', this.image); */
                  
                   axios
-                      .post('/attendance/ad_add_student/', FormData)                   
+                      .post('/attendance/ad_add_student/', formData)                   
                       .then(response => {                          
                           this.$router.push('/attendance/admin-student')
                       })
