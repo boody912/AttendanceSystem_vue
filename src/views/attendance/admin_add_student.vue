@@ -86,7 +86,7 @@
 
               <div class="form-group">
                 <div class="field">
-                      <input type="text" class="input" placeholder="Roll" v-model="roll">
+                      <input type="number" class="input" placeholder="Roll" v-model="roll">
                 </div>
               </div>
 
