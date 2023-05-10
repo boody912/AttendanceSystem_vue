@@ -2,13 +2,13 @@
     <div class="containerr">
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
-          <form action="{{ url_for('tasks') }}">
+          <form v-on:submit.prevent="Supmit">
             <div class="form-group">
                 <div class="field">
-                      <input type="number" class="input" placeholder="Identifier" v-model="id" >
+                      <input type="number" class="input" placeholder="Identifier" v-model="Identifier" >
                 </div>
               </div>
-            <button type="submit" class="btn btn-light">Capture</button>
+            <button type="submit" value = 'Capture' class="btn btn-light">Capture</button>
           </form>
           <div class="video-container">
             <video ref="video" autoplay></video>
@@ -20,7 +20,7 @@
     </div>
 </template>
 
-  
+ 
 
 <script>
 import axios from 'axios';
@@ -30,7 +30,7 @@ import axios from 'axios';
       return {
         video: null,
         stream: null,
-        id: null
+        Identifier: null
       };
     },
     mounted() {
@@ -60,12 +60,22 @@ import axios from 'axios';
           this.sendFrame(dataURL);
         }, 1000 / fps);
       },
-      sendFrame(dataURL) {
+      sendFrame(dataURL) {    
         axios
         .post(`/recognition/stream/`, dataURL)
         .then(() => {
         // Stop the video stream after the first image is sent
-        this.stream.getTracks()[1].stop();
+        this.stream.getTracks()[0].stop();
+        this.stream = null;
+         });
+        
+      },
+      Supmit() {    
+        axios
+        .post(`/recognition/tasks/`, Identifier )
+        .then(() => {
+        // Stop the video stream after the first image is sent
+        this.stream.getTracks()[0].stop();
         this.stream = null;
          });
         

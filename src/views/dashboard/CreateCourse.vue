@@ -1,4 +1,5 @@
 <template>
+    <div  v-if= "this.$store.state.user.isAuthenticated && (userGroup === 'ADMIN'|| userGroup === 'TEACHER')">
     <div class="about">
         <div class="hero is-info">
             <div class="hero-body notehome has-text-centered">
@@ -27,7 +28,7 @@
 
                 <div class="field">
                     <div class="select is-multiple">
-                        <select multiple size="10" v-model="form.categories">
+                        <select multiple size="3" v-model="form.categories">
                             <option 
                                 v-for="category in categories"
                                 v-bind:key="category.id"
@@ -70,6 +71,47 @@
                         <textarea class="textarea" v-model="lesson.long_description" :name="`form.lessons[${index}][long_description]`"></textarea>
                     </div>
 
+                   <!--  <div class="field">
+                        <label>Lesson Type</label>
+                        <input 
+                            type="text" 
+                            class="input" 
+                            v-model="lesson.lesson_type"
+                            :name="`form.lessons[${index}][lesson_type]`"
+                        >
+                    </div> -->
+
+                    <div class="field">
+                        <label>Lesson Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <div class="select">
+                            <select v-model="lesson.lesson_type" :name="`form.lessons[${index}][lesson_type]`">
+                            <option value="VIDEO">Video</option>
+                            <option value="ARTICLE">Article</option>
+                            </select>
+                        </div>
+                    </div>
+
+                  <!--   <div class="field">
+                        <label>Lesson Type</label>
+                        <div class="select">
+                            <select v-model="lesson.lesson_type" :name="`form.lessons[${index}][lesson_type]`">
+                            <option value="video">Video</option>
+                            <option value="article">Article</option>
+                            </select>
+                        </div>
+                    </div> -->
+
+
+                    <div class="field">
+                        <label>Youtube id</label>
+                        <input 
+                            type="text" 
+                            class="input" 
+                            v-model="lesson.youtube_id"
+                            :name="`form.lessons[${index}][youtube_id]`"
+                        >
+                    </div>
+
                     <hr>
                 </div>
 
@@ -82,6 +124,12 @@
             </div>
         </section>
     </div>
+    </div>
+    <div v-else>
+         <h2 style="margin-left: 40%;">{{ userGroup }} Can't Access this Page </h2>
+
+    </div>
+
 </template>
 
 <script>
@@ -94,14 +142,26 @@ export default {
                 title: '',
                 short_description: '',
                 long_description: '',
+                /* youtube_id: '',
+                lesson_type: '', */
                 categories: [],
                 status: '',
                 lessons: []
             },
+
+            userGroup: null,
             categories: [],
+            types: ['ARTICLE','VIDEO'],
         }
     },
     mounted() {
+        axios.get('courses/user_group/')
+        .then(response => {
+        this.userGroup = response.data.group;
+        })
+        .catch(error => {
+        console.log(error);
+        });
         this.getCategories()
     },
     methods: {
@@ -137,7 +197,9 @@ export default {
             this.form.lessons.push({
                 title: '',
                 short_description: '',
-                long_description: ''
+                long_description: '',
+                youtube_id:'',
+                lesson_type:'',
             })
         }
     }

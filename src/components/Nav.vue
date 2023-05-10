@@ -18,6 +18,7 @@
                     
                             <template v-if= "this.$store.state.user.isAuthenticated && userGroup === 'ADMIN'">
                                 <router-link to="/attendance/admin-base" class="button is-danger">Attendance</router-link>
+                                <router-link to="/dashboard/create-course" class="button is-primary">Create course</router-link>
                             </template>
                             <template v-if= "this.$store.state.user.isAuthenticated && userGroup === 'TEACHER'">
                                 <!-- <router-link to="/attendance/teacher-base/" class="button is-danger">Attendance</router-link> -->
@@ -27,6 +28,7 @@
                                 >
                                 Attendance
                                 </a>
+                                <router-link to="/dashboard/create-course" class="button is-primary">Create course</router-link>
                             </template>
                             <template v-if= "this.$store.state.user.isAuthenticated && userGroup === 'STUDENT'">
                                <!--  <router-link to="/attendance/student-base/" class="button is-danger">Attendance</router-link> -->
@@ -43,7 +45,7 @@
                                 Attendance
                                 </a>
                             </template>
-                            <router-link to="/dashboard/create-course" class="button is-primary">Create course</router-link>
+                            
                             <router-link to="/dashboard/my-account" class="button is-info">My account</router-link>
                         </template>
 
