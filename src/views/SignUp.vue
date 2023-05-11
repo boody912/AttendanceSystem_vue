@@ -79,7 +79,7 @@
 
                           <div class="field">
                             <input type="number" class="input" placeholder="Roll"  v-model="roll">
-                        </div>
+                         </div>
   
                         
   

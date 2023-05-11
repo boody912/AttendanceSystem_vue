@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="containerr">
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
@@ -82,49 +82,158 @@ import axios from 'axios';
       },
     },
   };
-  </script> 
+  </script>  -->
 
-  <!-- <template>
-    <div>
-      <webcam ref="webcam" :height="480" :width="640" @image="sendImage"></webcam>
+
+<template>
+    
+    <div id="app">
+      <video ref="video" width="640" height="480"></video>
+      <canvas ref="canvas" width="640" height="480" style="display:none;"></canvas>
+      <div class="field">
+          <input type="number" class="input" placeholder="Roll"  v-model="roll">
+      </div>
+      <button v-on:click="captureImage" >Capture Image</button>
+      <div>
+        
+      </div>
+      
     </div>
-  </template>
-  
-  <script>
-  import { w3cwebsocket as WebSocket } from 'websocket';
-  
+    <button class="backbutton" onclick="history.back()"> Back</button>
+
+</template>
+
+
+
+<script>
+import axios from 'axios';
+
   export default {
     data() {
       return {
-        ws: null,
+        capturedImage: null,
+        video: null,
+        canvas: null,
+        roll:''
+        
       };
     },
     mounted() {
-      /* this.ws = new WebSocket('ws://localhost:8000/ws/'); */
-      this.ws = new WebSocket('/recognition/ws/');
-      this.ws.onopen = () => {
-        console.log('WebSocket connection established');
-      };
-      this.ws.onmessage = (event) => {
-        console.log('WebSocket message received:', event.data);
-      };
-      this.ws.onclose = () => {
-        console.log('WebSocket connection closed');
-      };
+        this.video = this.$refs.video;
+        this.canvas = this.$refs.canvas;
+        this.startCamera();
+      
     },
+  
     methods: {
-      sendImage(image) {
-        const message = {
-          type: 'image',
-          data: image,
-          timestamp: Date.now(),
-        };
-        this.ws.send(JSON.stringify(message));
+      beforeDestroy() {
+        if (this.stream) {
+          const tracks = this.stream.getTracks();
+          tracks.forEach((track) => {
+            track.stop();
+          });
+        }
       },
+
+      /* closeCamera: function() {
+          this.stream.getTracks().forEach(function(track) {
+            track.stop(); // Stop all tracks in the MediaStream object
+          });
+          this.showCamera = false; // Hide the camera video element
+        }, */
+
+      startCamera: function() {
+          var self = this;
+          navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+              self.video.srcObject = stream;
+              self.video.play();
+            })
+            .catch(function(error) {
+              alert("Failed to access camera: " + error.message);
+            });
+        },
+        captureImage: function() {
+          var context = this.canvas.getContext('2d');
+          context.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
+          this.capturedImage = this.canvas.toDataURL();
+          
+          this.sendImage();
+        },
+        sendImage: function() {
+          var self = this;
+          if (self.capturedImage) {
+            const formData = new FormData();
+                formData.append('image', self.capturedImage);
+                formData.append('roll', this.roll);
+            axios
+              .post(`/recognition/upload_image/`, formData)                   
+              .then(response => {  
+                this.beforeDestroy();                
+                this.$router.push('/courses')
+               })
+            
+          }
+        },
+      
     },
   };
   </script>
- -->
+
+
+<!-- <script>
+    var app = new Vue({
+      el: '#app',
+      delimiters: ['[[', ']]'],
+      data: {
+        capturedImage: null,
+        video: null,
+        canvas: null
+      },
+      mounted: function() {
+        this.video = this.$refs.video;
+        this.canvas = this.$refs.canvas;
+        this.startCamera();
+      },
+      methods: {
+        startCamera: function() {
+          var self = this;
+          navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+              self.video.srcObject = stream;
+              self.video.play();
+            })
+            .catch(function(error) {
+              alert("Failed to access camera: " + error.message);
+            });
+        },
+        captureImage: function() {
+          var context = this.canvas.getContext('2d');
+          context.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
+          this.capturedImage = this.canvas.toDataURL();
+          this.sendImage();
+        },
+        sendImage: function() {
+          var self = this;
+          if (self.capturedImage) {
+            $.ajax({
+              url: '{% url "upload_image" %}',
+              type: 'POST',
+              data: {
+                'image': self.capturedImage
+              },
+              success: function(response) {
+                console.log(response);
+              },
+              error: function(error) {
+                console.log(error);
+              },
+            });
+          }
+        },
+      }
+    });
+  </script> -->
 
 
 <style>
