@@ -84,6 +84,48 @@ import axios from 'axios';
   };
   </script> 
 
+  <!-- <template>
+    <div>
+      <webcam ref="webcam" :height="480" :width="640" @image="sendImage"></webcam>
+    </div>
+  </template>
+  
+  <script>
+  import { w3cwebsocket as WebSocket } from 'websocket';
+  
+  export default {
+    data() {
+      return {
+        ws: null,
+      };
+    },
+    mounted() {
+      /* this.ws = new WebSocket('ws://localhost:8000/ws/'); */
+      this.ws = new WebSocket('/recognition/ws/');
+      this.ws.onopen = () => {
+        console.log('WebSocket connection established');
+      };
+      this.ws.onmessage = (event) => {
+        console.log('WebSocket message received:', event.data);
+      };
+      this.ws.onclose = () => {
+        console.log('WebSocket connection closed');
+      };
+    },
+    methods: {
+      sendImage(image) {
+        const message = {
+          type: 'image',
+          data: image,
+          timestamp: Date.now(),
+        };
+        this.ws.send(JSON.stringify(message));
+      },
+    },
+  };
+  </script>
+ -->
+
 
 <style>
 .containerr {
