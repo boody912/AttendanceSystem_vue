@@ -174,8 +174,9 @@ export default {
             formData.append('short_description', this.form.short_description);
             formData.append('long_description', this.form.long_description);
             formData.append('image', this.form.image);
-            formData.append('status', this.form.status);
+            formData.append('status', status);
             formData.append('categories', this.form.categories );
+            formData.append('lessons', this.form.lessons );
             this.form.status = status
             
 

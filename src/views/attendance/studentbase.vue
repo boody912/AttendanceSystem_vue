@@ -44,6 +44,12 @@
         View Attendance
       </span>
       </a>
+      <a :href="`/recognition/index/`"
+      class="fas fa-clipboard-list">
+      <span>
+        Take Attendance
+      </span>
+      </a>
 
     </div>
 
