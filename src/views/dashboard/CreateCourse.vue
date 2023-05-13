@@ -46,6 +46,8 @@
                 </div>
             </div>
 
+            <!-- loop for lesson form -->
+
             <div class="mb-6 px-6 py-4 has-background-grey-lighter">
                 <h2 class="subtitle">Lessons</h2>
 
@@ -100,8 +102,90 @@
                     <hr>
                 </div>
 
+            
                 <button class="button is-primary" @click="addLesson()">Add lesson</button>
             </div>
+
+
+            <!-- loop for quizes form -->
+            <div class="mb-6 px-6 py-4 has-background-grey-lighter">
+                <h2 class="subtitle">Quizes</h2>
+
+                <div
+                    v-for="(quiz, index) in form.quizes"
+                    v-bind:key="index"
+                    class="mb-4"
+                >
+                    <h3 class="subtitle is-size-6">quiz</h3>
+
+                    <div class="field">
+                        <label>Title</label>
+                        <input 
+                            type="text" 
+                            class="input" 
+                            v-model="quiz.title"
+                            :name="`form.quizes[${index}][title]`"
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label>Question</label>
+                        <input 
+                            type="text" 
+                            class="input" 
+                            v-model="quiz.question"
+                            :name="`form.quizes[${index}][question]`"
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label>Answer</label>
+                        <input 
+                            type="text" 
+                            class="input" 
+                            v-model="quiz.answer"
+                            :name="`form.quizes[${index}][answer]`"
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label>Option 1</label>
+                        <input 
+                            type="text" 
+                            class="input" 
+                            v-model="quiz.op1"
+                            :name="`form.quizes[${index}][op1]`"
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label>Option 2</label>
+                        <input 
+                            type="text" 
+                            class="input" 
+                            v-model="quiz.op2"
+                            :name="`form.quizes[${index}][op2]`"
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label>Option 3</label>
+                        <input 
+                            type="text" 
+                            class="input" 
+                            v-model="quiz.op3"
+                            :name="`form.quizes[${index}][op3]`"
+                        >
+                    </div>
+
+
+                    <hr>
+                </div>
+
+                <button class="button is-danger" @click="addQuiz()">Add Quiz</button>
+            </div>
+
+
 
             <div class="field buttons">
                 <router-link to="/courses" @click="submitForm('draft')" class="button is-success">save as draft</router-link>
@@ -132,7 +216,8 @@ export default {
                 categories: [],
                 status: '',
                 image: null,
-                lessons: []
+                lessons: [],
+                quizes: [],
             },
 
             userGroup: null,
@@ -165,6 +250,7 @@ export default {
         handleFileUpload(event) {
             this.form.image = event.target.files[0];
         },
+
         submitForm(status) {
             console.log('submitForm')
             console.log(this.form)
@@ -172,17 +258,17 @@ export default {
             const formData = new FormData();
             formData.append('title', this.form.title);
             formData.append('short_description', this.form.short_description);
-            formData.append('long_description', this.form.long_description);
+            formData.append('long_description', this.form.long_description); 
             formData.append('image', this.form.image);
             formData.append('status', status);
-            formData.append('categories', this.form.categories );
-            formData.append('lessons', this.form.lessons );
-            this.form.status = status
-            
+            formData.append('categories', this.form.categories ); 
+            formData.append('lessons', JSON.stringify(this.form.lessons));
+            formData.append('quizes', JSON.stringify(this.form.quizes));
+            this.form.status = status;
+             
 
-
-            axios
-                .post('courses/create/', formData)
+            axios 
+                .post('courses/create/', formData )
                 .then(response => {
                     console.log(response.data)
                 })
@@ -200,7 +286,22 @@ export default {
                 youtube_id:'',
                 lesson_type:'',
             })
+        },
+        addQuiz() {
+            console.log('addQuiz')
+
+            this.form.quizes.push({
+                title: '',
+                lesson:'',
+                question: '',
+                answer: '',
+                op1: '',
+                op2: '',
+                op3: '',
+            })
         }
+
+
     }
 }
 </script>
