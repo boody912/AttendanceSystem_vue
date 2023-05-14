@@ -3,9 +3,9 @@
     <div id="app">
       <video ref="video" width="640" height="480"></video>
       <canvas ref="canvas" width="640" height="480" style="display:none;"></canvas>
-      <div class="field">
+      <!-- <div class="field">
           <input type="number" class="input" placeholder="Roll" required  v-model="roll">
-      </div>
+      </div> -->
       <button v-on:click="captureImage" >Capture Image</button>
       <div>
         
@@ -81,12 +81,13 @@ import axios from 'axios';
           if (self.capturedImage) {
             const formData = new FormData();
                 formData.append('image', self.capturedImage);
-                formData.append('roll', this.roll);
+                formData.append('roll', this.$route.params.roll);
+                formData.append('class', this.$route.params.class);
             axios
               .post(`/recognition/upload_image/`, formData)                   
               .then(response => {  
                 this.beforeDestroy();                
-                this.$router.push('/courses')
+                this.$router.go(-1);
                })
             
           }

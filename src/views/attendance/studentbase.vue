@@ -44,12 +44,14 @@
         View Attendance
       </span>
       </a>
-      <a :href="`/recognition/index/`"
+      <div v-for="Student in Students" :key = "Student.id">
+      <a :href="`/recognition/index/${ Student.roll }/${ Student.cl }/`"
       class="fas fa-clipboard-list">
       <span>
         Take Attendance
       </span>
       </a>
+      </div>
 
     </div>
 

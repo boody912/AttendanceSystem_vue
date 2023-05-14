@@ -368,7 +368,7 @@ const routes = [
 
     /* ----------teacher panel------------- */
     {
-      path: '/recognition/index',
+      path: '/recognition/index/:roll/:class/',
       name: 'rindex',
       component:rindex
     },
