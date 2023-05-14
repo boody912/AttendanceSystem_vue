@@ -1,5 +1,5 @@
 <template>
-
+ <div  v-if= "this.$store.state.user.isAuthenticated && userGroup === 'ADMIN'">
 <head>
   
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -67,6 +67,11 @@
   </div>
 </form>
 <button class="backbutton" onclick="history.back()"> Back</button>
+</div>
+</div>
+<div v-else>
+  <h2 style="margin-left: 40%;">{{ userGroup }} Can't Access this Page </h2>
+
 </div>
 </template>
 

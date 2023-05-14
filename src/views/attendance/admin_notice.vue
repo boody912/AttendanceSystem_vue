@@ -1,4 +1,5 @@
 <template>
+  <div  v-if= "this.$store.state.user.isAuthenticated && userGroup === 'ADMIN'">
  <head>
     <meta charset="utf-8">
 
@@ -79,6 +80,11 @@
   <br><br>
 </div>  
 </body>
+</div>
+<div v-else>
+  <h2 style="margin-left: 40%;">{{ userGroup }} Can't Access this Page </h2>
+
+</div>
 </template>
 
 

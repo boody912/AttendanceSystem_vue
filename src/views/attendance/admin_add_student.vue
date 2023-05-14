@@ -1,5 +1,5 @@
 <template>
-
+<div  v-if= "this.$store.state.user.isAuthenticated && userGroup === 'ADMIN'">
 <head>
   
 
@@ -118,7 +118,11 @@
 
 <button class="backbutton" onclick="history.back()"> Back</button>
 </div>
+</div>
+<div v-else>
+  <h2 style="margin-left: 40%;">{{ userGroup }} Can't Access this Page </h2>
 
+</div>
 </template>
 
 
