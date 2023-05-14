@@ -264,7 +264,7 @@ export default {
             formData.append('categories', this.form.categories ); 
             formData.append('lessons', JSON.stringify(this.form.lessons));
             formData.append('quizes', JSON.stringify(this.form.quizes));
-            this.form.status = status;
+            /* this.form.status = status; */
              
 
             axios 
