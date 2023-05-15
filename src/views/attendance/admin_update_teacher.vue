@@ -7,8 +7,8 @@
 </head>
 
 <!------ signup page for teacher by admin(sumit)  ---------->
-<form method="post">
-  
+<div class="form-content">
+<form v-on:submit.prevent="submitForm">
   <div class="container register-form">
     <div class="form">
       <div class="note">
@@ -17,60 +17,59 @@
 
       <div class="form-content">
         <div class="row">
-          
           <div class="col-md-6">
               <div class="form-group">
                 <div class="field">                     
-                      <input type="text" class="input" placeholder="First Name">
+                      <input type="text" class="input" placeholder="First Name" v-model="firstname">
+                </div>
+              </div>
+
+            <!--   <div class="form-group">
+                <div class="field">
+                      <input type="email" class="input" placeholder="User Name" v-model="username">
+                </div>
+              </div> -->
+
+              <div class="form-group">
+                <div class="field">
+                      <input type="number" class="input" placeholder="Contact" v-model="contact">
                 </div>
               </div>
 
               <div class="form-group">
                 <div class="field">
-                      <input type="text" class="input" placeholder="User Name" >
+                      <input type="number" class="input" placeholder="salary" v-model="salary">
                 </div>
               </div>
 
-              <div class="form-group">
-                <div class="field">
-                      <input type="text" class="input" placeholder="Contact">
-                </div>
-              </div>
-
-              
-
+           
           </div>
 
           <div class="col-md-6">
               <div class="form-group">
                 <div class="field">                     
-                      <input type="text" class="input" placeholder="Last Name">
+                      <input type="text" class="input" placeholder="Last Name" v-model="lastname">
                 </div>
               </div>
 
               <div class="form-group">
                 <div class="field">
-                      <input type="text" class="input" placeholder="Password" >
+                      <input type="password" class="input" placeholder="Password" v-model="password">
                 </div>
               </div>
 
-              <div class="form-group">
-                <div class="field">
-                      <input type="text" class="input" placeholder="salary">
-                </div>
-              </div>
+             
 
-              </div>
-
-              
+   
+          </div>
         </div>
-
-        <button type="submit" class="btnSubmit">Submit</button>
+        <button type="submit" class="btnSubmit">Update</button>    
       </div>
     </div>
   </div>
-
 </form>
+<button class="backbutton" onclick="history.back()"> Back</button>
+</div>
 </div>
 
 <div v-else>
@@ -83,80 +82,82 @@
 </template>
 
 <script>
-import axios from 'axios'
+  import axios from 'axios'
+  export default {
+      data() {
+          return {
+              firstname:'',
+              lastname:'',
+              username: '',
+              password: '',
+              password2: '',
+              contact:'',
+              salary: '',
+              status:'',
+              group: 'STUDENT',
+              userGroup: null,
+              errors: []
+          }
+      },
+      mounted() {
+          document.title = 'ADD Teacher | StudyNet'
 
-
-
-export default {
-    data() {
-        return {
-          TeacherCount: null,
-          PendingTeacherCount: "0",
-          StudentCount: null,
-          PendingStudentCount: "0",
-          TeacherSalary: null,
-          PendingTeacherSalary: "0",
-          StudentFee: null,
-          PendingStudentFee: "0",
-
-          userGroup: null,
-          
-          notices: []
-        }
-    },
-  
-  
-    async mounted() {
-        console.log('mounted')
-
-        axios.get('courses/user_group/')
-        .then(response => {
-        this.userGroup = response.data.group;
-        })
-        .catch(error => {
-        console.log(error);
-        });
-
-        this.getDashData()
-        this.getNotice()
-    },
-    methods: {
-        getDashData() {
-            axios
-                .get(`/attendance/ad_dashboard_data/`)
-                .then(response => {
-                    console.log(response.data)
+          axios.get('courses/user_group/')
+          .then(response => {
+          this.userGroup = response.data.group;
+          })
+          .catch(error => {
+          console.log(error);
+          });
+      },
+      methods: {
+          submitForm() {
+              console.log('submitForm')
+              this.errors = []
+              /* if (this.username === '') {
+                  this.errors.push('The username is missing!')
+              } */
+            /*   if (this.password === '') {
+                  this.errors.push('The password is missing!')
+              }
+              if (this.password !== this.password2) {
+                  this.errors.push('The passwords are not matching!')
+              } */
+              if (!this.errors.length) {
+                  const formData = {
+                      first_name: this.firstname,
+                      last_name: this.lastname,
+                      /* username: this.username, */
+                      password: this.password,                     
+                      salary: this.salary,
+                      contact: this.contact
+                      
                     
-                    this.TeacherCount = response.data.teachercount
-                    this.PendingTeacherCount = response.data.pendingteachercount
-
-                    this.StudentCount = response.data.studentcount
-                    this.PendingStudentCount = response.data.pendingstudentcount
-
-                    this.TeacherSalary = response.data.teachersalary
-                    this.PendingTeachersalary = response.data.pendingteachersalary
-
-                    this.StudentFee = response.data.studentfee
-                    this.PendingStudentfee = response.data.pendingstudentfee
-
+                  }
+                  axios
+                      .put(`/attendance/ad_update_teacher/${this.$route.params.id}/`, formData)                   
+                      .then(response => {                          
+                          this.$router.push('/attendance/admin-view-teacher')
+                      })
+                      .catch(error => {
+                          if (error.response) {
+                              for (const property in error.response.data) {
+                                  this.errors.push(`${property}: ${error.response.data[property]}`)
+                              }
+                              console.log(JSON.stringify(error.response.data))
+                          } else if (error.message) {
+                              this.errors.push('Something went wrong. Please try again')
+                              
+                              console.log(JSON.stringify(error))
+                          }
+                      })
                   
-                    
-                })
-        },
-        getNotice() {
-            axios
-                .get(`/attendance/ad_notice/`)
-                .then(response => {
-                    console.log(response.data)
-                    
-                    this.notices = response.data
-                   
-                    
-                })
-        }
-    }
-}
-</script>
+                  
+              }
+          }
+      }
+  }
+  </script>
 
 <style media="screen">
 a:link {

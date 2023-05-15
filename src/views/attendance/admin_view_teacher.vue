@@ -38,7 +38,7 @@
                   <td>{{ teacher.salary }}</td>
                   <td>{{ teacher.joindate }}</td>
                   <td>
-                    <a class="btn btn-primary btn-xs" href="{% url 'update-teacher' t.id  %}"  ><span class="glyphicon glyphicon-edit"></span></a>
+                    <a class="btn btn-primary btn-xs" v-on:click="updateTeacher(teacher.id)"  ><span class="glyphicon glyphicon-edit"></span></a>
                     <a class="btn btn-danger btn-xs" v-on:click="deleteTeacher(teacher.id)" ><span class="glyphicon glyphicon-trash"></span></a>
                   </td>
               </tr>
@@ -102,8 +102,9 @@
             // Handle the error that occurred during the deletion
             alert('An error occurred while deleting the Teacher.');
           });
-
-
+        },
+        updateTeacher(teacher_id) {
+          window.location.href = `/attendance/admin-update-teacher/${teacher_id}/`;
         }
 
       
