@@ -37,7 +37,7 @@
         <td>{{ student.cl }}</td>
         <td>{{ student.mobile }}</td>
         <td>{{ student.fee }}</td>
-        <td><a class="btn btn-primary btn-xs" href=""><span class="glyphicon glyphicon-edit"></span></a>
+        <td><a class="btn btn-primary btn-xs" v-on:click="updateStudent(student.id)"><span class="glyphicon glyphicon-edit"></span></a>
        <a class="btn btn-danger btn-xs"  v-on:click="deleteStudent(student.id)"><span class="glyphicon glyphicon-trash"></span></a></td>
 
       </tr>
@@ -99,9 +99,12 @@
             // Handle the error that occurred during the deletion
             alert('An error occurred while deleting the student.');
           });
+       },
 
-
-        }
+       updateStudent(student_id) {
+        window.location.href = `/attendance/admin-update-student/${student_id}/`;
+      }
+       
 
       
     }

@@ -172,9 +172,7 @@ export default {
                   console.log(response.data)                  
                   this.Students = response.data.student,
                   this.Users = response.data.user
-                  
-                 
-                                                 
+                                               
               })
       },
       getNotice() {

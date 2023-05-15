@@ -188,7 +188,7 @@ const routes = [
     component: admin_teacher
   },
   {
-    path: '/attendance/admin-update-student',
+    path: '/attendance/admin-update-student/:id/',
     name: 'admin_update_student',
     component: admin_update_student
   },
