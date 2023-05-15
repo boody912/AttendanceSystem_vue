@@ -49,13 +49,22 @@
     data() {
         return {
           students: [],
-          Classs: this.$route.params.cl
+          Classs: this.$route.params.cl,
+          userGroup: null
           
         }
     },
   
     async mounted() {
         console.log('mounted')
+
+        axios.get('courses/user_group/')
+          .then(response => {
+          this.userGroup = response.data.group;
+          })
+          .catch(error => {
+          console.log(error);
+          });
 
         this.getStudents()
     },

@@ -49,12 +49,20 @@
               Class:this.$route.params.cl,
               Date:this.$route.params.date,
               Students: [],             
-              Attendancies: []             
+              Attendancies: [],
+              userGroup:null             
           }
       },
       mounted() {
           document.title = 'view attendance  | StudyNet'
           this.getStudents()
+          axios.get('courses/user_group/')
+          .then(response => {
+          this.userGroup = response.data.group;
+          })
+          .catch(error => {
+          console.log(error);
+          });
       },
       methods: {       
           getStudents() {

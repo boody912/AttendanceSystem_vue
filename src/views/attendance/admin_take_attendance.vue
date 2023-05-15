@@ -73,6 +73,7 @@
             attendanceRecords: [],
             classs: this.$route.params.cl,
             date: '',
+            userGroup: null
            
             
           }
@@ -92,6 +93,14 @@
           }
         })
         .catch(error => console.log(error));
+
+        axios.get('courses/user_group/')
+          .then(response => {
+          this.userGroup = response.data.group;
+          })
+          .catch(error => {
+          console.log(error);
+          });
 
         
     },

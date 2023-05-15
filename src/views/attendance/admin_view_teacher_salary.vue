@@ -48,12 +48,21 @@
     data() {
         return {
           teachers: [],
+          userGroup: null
           
         }
     },
   
     async mounted() {
         console.log('mounted')
+        axios.get('courses/user_group/')
+          .then(response => {
+          this.userGroup = response.data.group;
+          })
+          .catch(error => {
+          console.log(error);
+          });
+
 
         this.getTeachers()
     },

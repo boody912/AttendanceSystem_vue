@@ -97,12 +97,19 @@
       data() {
           return {
               message:'',
-           
+              userGroup: null,
               errors: []
           }
       },
       mounted() {
           document.title = 'Notice | StudyNet'
+          axios.get('courses/user_group/')
+          .then(response => {
+          this.userGroup = response.data.group;
+          })
+          .catch(error => {
+          console.log(error);
+          });
       },
       methods: {
           submitForm() {

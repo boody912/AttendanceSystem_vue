@@ -48,13 +48,21 @@
       data() {
           return {                        
               Class:this.$route.params.cl,
-              date:''
+              date:'',
+              userGroup: null
              
           }
       },
       mounted() {
           document.title = 'view attendance  | StudyNet'
-      },
+          axios.get('courses/user_group/')
+          .then(response => {
+          this.userGroup = response.data.group;
+          })
+          .catch(error => {
+          console.log(error);
+          });
+        },
       methods: {
           submitForm() {             
             this.$router.push(`/attendance/admin-view-attendance-page/${this.$route.params.cl}/${this.date}`)

@@ -172,18 +172,11 @@ import axios from 'axios'
 export default {
     data() {
         return {
-          TeacherCount: null,
-          PendingTeacherCount: "0",
-          StudentCount: null,
-          PendingStudentCount: "0",
-          TeacherSalary: null,
-          PendingTeacherSalary: "0",
-          StudentFee: null,
-          PendingStudentFee: "0",
+       
 
           userGroup: null,
           
-          notices: []
+         
         }
     },
   
@@ -203,39 +196,7 @@ export default {
         this.getNotice()
     },
     methods: {
-        getDashData() {
-            axios
-                .get(`/attendance/ad_dashboard_data/`)
-                .then(response => {
-                    console.log(response.data)
-                    
-                    this.TeacherCount = response.data.teachercount
-                    this.PendingTeacherCount = response.data.pendingteachercount
-
-                    this.StudentCount = response.data.studentcount
-                    this.PendingStudentCount = response.data.pendingstudentcount
-
-                    this.TeacherSalary = response.data.teachersalary
-                    this.PendingTeachersalary = response.data.pendingteachersalary
-
-                    this.StudentFee = response.data.studentfee
-                    this.PendingStudentfee = response.data.pendingstudentfee
-
-                  
-                    
-                })
-        },
-        getNotice() {
-            axios
-                .get(`/attendance/ad_notice/`)
-                .then(response => {
-                    console.log(response.data)
-                    
-                    this.notices = response.data
-                   
-                    
-                })
-        }
+       
     }
 }
 </script>

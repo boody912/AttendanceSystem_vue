@@ -89,11 +89,19 @@
               salary: '',
               status:'',
               group: 'STUDENT',
+              userGroup: null,
               errors: []
           }
       },
       mounted() {
           document.title = 'ADD Teacher | StudyNet'
+          axios.get('courses/user_group/')
+          .then(response => {
+          this.userGroup = response.data.group;
+          })
+          .catch(error => {
+          console.log(error);
+          });
       },
       methods: {
           submitForm() {
