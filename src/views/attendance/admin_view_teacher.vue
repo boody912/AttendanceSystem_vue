@@ -22,6 +22,7 @@
             <thead>
 
                 <tr>
+                    <th>id</th>
                     <th>Name</th>
                     <th>Contact</th>
                     <th>Salary</th>
@@ -31,13 +32,14 @@
                 </tr>
             </thead>
               <tr  v-for="teacher in teachers" :key="teacher.id">
+                  <td> {{ teacher.id}}</td>
                   <td> {{ teacher.first_name }}</td>
                   <td>{{ teacher.mobile }}</td>
                   <td>{{ teacher.salary }}</td>
                   <td>{{ teacher.joindate }}</td>
                   <td>
                     <a class="btn btn-primary btn-xs" href="{% url 'update-teacher' t.id  %}"  ><span class="glyphicon glyphicon-edit"></span></a>
-                    <a class="btn btn-danger btn-xs" href="/attendance/admin-view-teacher"  ><span class="glyphicon glyphicon-trash"></span></a>
+                    <a class="btn btn-danger btn-xs" v-on:click="deleteTeacher(teacher.id)" ><span class="glyphicon glyphicon-trash"></span></a>
                   </td>
               </tr>
 					</table>
@@ -62,12 +64,21 @@
     data() {
         return {
           teachers: [],
+          userGroup: null
           
         }
     },
   
     async mounted() {
         console.log('mounted')
+
+        axios.get('courses/user_group/')
+        .then(response => {
+        this.userGroup = response.data.group;
+        })
+        .catch(error => {
+        console.log(error);
+        });
 
         this.getTeachers()
     },
@@ -76,24 +87,30 @@
             axios
                 .get(`/attendance/ad_view_teachers/`)
                 .then(response => {
-                    console.log(response.data)
-                    
-                    this.teachers = response.data
-                  
-
-                    
+                    console.log(response.data)                 
+                    this.teachers = response.data                  
                 })
+        },
+        deleteTeacher(teacher_id){
+          axios.delete(`/attendance/ad_delete_teacher/${teacher_id}/`)
+          .then(response => {
+            // Handle the successful deletion of the student
+            window.location.reload();
+            alert('Teacher deleted successfully!');
+          })
+          .catch(error => {
+            // Handle the error that occurred during the deletion
+            alert('An error occurred while deleting the Teacher.');
+          });
+
+
         }
+
+      
     }
 };
 
 </script>
-
-
-
-
-
-
 
   <style media="screen">
     a:link {

@@ -20,7 +20,9 @@
       <thead>
 
         <tr>
+          <th>id</th>
           <th>Name</th>
+          <th>roll</th>
           <th>Class</th>
           <th>Contact</th>
           <th>Fee</th>
@@ -29,12 +31,14 @@
       </thead>
   
       <tr v-for="student in students" :key="student.id">
+        <td> {{ student.id }}</td>
         <td> {{ student.first_name }}</td>
+        <td> {{ student.roll }}</td>
         <td>{{ student.cl }}</td>
         <td>{{ student.mobile }}</td>
         <td>{{ student.fee }}</td>
         <td><a class="btn btn-primary btn-xs" href=""><span class="glyphicon glyphicon-edit"></span></a>
-       <a class="btn btn-danger btn-xs" href=""><span class="glyphicon glyphicon-trash"></span></a></td>
+       <a class="btn btn-danger btn-xs"  v-on:click="deleteStudent(student.id)"><span class="glyphicon glyphicon-trash"></span></a></td>
 
       </tr>
 
@@ -57,6 +61,7 @@
     data() {
         return {
           students: [],
+          userGroup: null
           
         }
     },
@@ -64,21 +69,41 @@
     async mounted() {
         console.log('mounted')
 
-        this.getTeachers()
+        axios.get('courses/user_group/')
+        .then(response => {
+        this.userGroup = response.data.group;
+        })
+        .catch(error => {
+        console.log(error);
+        });
+
+        this.getStudents()
     },
     methods: {
-      getTeachers() {
+      getStudents() {
             axios
                 .get(`/attendance/ad_view_students/`)
                 .then(response => {
-                    console.log(response.data)
-                    
-                    this.students = response.data
-                  
-
-                    
+                    console.log(response.data)                    
+                    this.students = response.data        
                 })
+        },
+        deleteStudent(student_id){
+          axios.delete(`/attendance/ad_delete_student/${student_id}/`)
+          .then(response => {
+            // Handle the successful deletion of the student
+            window.location.reload();
+            alert('Student deleted successfully!');
+          })
+          .catch(error => {
+            // Handle the error that occurred during the deletion
+            alert('An error occurred while deleting the student.');
+          });
+
+
         }
+
+      
     }
 };
 
