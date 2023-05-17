@@ -57,7 +57,7 @@
       <div class="container">
         <div class="row">
 
-          <div class="col-md-4 col-xl-3">
+          <div class="col-md-4 col-xl-4">
             <div class="card bg-c-blue order-card">
               <div class="card-block">
                 <router-link to="admin-view-student" class="route"> 
@@ -69,7 +69,7 @@
             </div>
           </div>
 
-          <div class="col-md-4 col-xl-3">
+          <div class="col-md-4 col-xl-4">
             <div class="card bg-c-green order-card">
               <div class="card-block">
                 <router-link to="admin-add-student" class="route"> 
@@ -82,7 +82,7 @@
             </div>
           </div>
 
-          <div class="col-md-4 col-xl-3">
+          <!-- <div class="col-md-4 col-xl-3">
             <div class="card bg-c-yellow order-card">
               <div class="card-block">
 
@@ -93,9 +93,9 @@
                 </router-link>                             
               </div>
             </div>
-          </div>
+          </div> -->
 
-          <div class="col-md-4 col-xl-3">
+          <div class="col-md-4 col-xl-4">
             <div class="card bg-c-pink order-card">
               <div class="card-block">
 

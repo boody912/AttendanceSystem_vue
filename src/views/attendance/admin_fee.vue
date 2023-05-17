@@ -192,8 +192,7 @@ export default {
         console.log(error);
         });
 
-        this.getDashData()
-        this.getNotice()
+        
     },
     methods: {
        

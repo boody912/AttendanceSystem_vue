@@ -98,7 +98,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-4 col-xl-3">
             <div class="card bg-c-blue order-card">
               <div class="card-block">
@@ -138,9 +138,10 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
+
       </div>
-  <div class="w3-panel w3-black">
+  <div class="w3-panel w3-black " style="background-image: linear-gradient(to right, #47a3e9, #4a5c64); ">
     <p>Notice Board</p>
   </div>
 

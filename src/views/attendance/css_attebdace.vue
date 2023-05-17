@@ -214,7 +214,6 @@ label #sidebar_btn:hover {
 }
 
 
-
 .contentadminj {
   margin-left: 250px;
   background-position: center;

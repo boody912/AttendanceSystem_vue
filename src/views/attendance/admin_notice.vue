@@ -160,7 +160,7 @@
       text-align: center;
       border-radius: 1.5rem;
       height: 80px;
-      background: #607d8b;      
+      background: -webkit-linear-gradient(left, #24a0ed, #4a5c64);   
       color:#ffffff;
       font-weight: bold;
       line-height: 80px;
@@ -170,11 +170,14 @@
     .form-content {
       padding: 5%;
       border: 2px solid #ced4da;
+      background: -webkit-linear-gradient(left, #47a3e9, #4a5c64);   
+
       margin-bottom: 10%;
     }
 
     .form-control {
       border-radius: 1.5rem;
+
       height: 250px;
     }
 
