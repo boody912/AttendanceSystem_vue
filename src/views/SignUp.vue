@@ -5,11 +5,12 @@
           <h1 class="title">Sign up</h1>
         </div>
       </div>
-  
+      
+      <div class="form-contentt">
       <section class="section">
         <form v-on:submit.prevent="submitForm">
           <div class="container">
-              <div class="columns">  
+              <div class="columns form-content">  
 
                   <div class="column is-6 ">
                           <div class="field">
@@ -79,31 +80,40 @@
 
                           <div class="field">
                             <input type="number" class="input" placeholder="Roll"  v-model="roll">
-                         </div>
-  
-                        
-  
-                          
+                         </div>   
+                         
+
+                    </div>
+
+                  <div class="column is-8 is-offset-0">
+
+                    
+                    
                   </div>
-                  
-                  
+
                 
               </div>
 
-              <div class="column is-10 is-offset-1">
-                    <div class="field">
-                              <div class="control">
-                                  <button class="button is-dark">Sign up</button>
-                              </div>
+                <div class="column is-5 is-offset-5">
+                    <div class="control">
+                        <button class="button is-success  ">Sign up</button>
                     </div>
+
                     <hr>
   
                       Or <router-link to="/log-in">click here</router-link> to log in!
-                  </div>
+
+                </div>
+                    
+
+              
+
+              
 
           </div>
         </form>     
       </section>
+    </div>
   
     </div>
   </template>

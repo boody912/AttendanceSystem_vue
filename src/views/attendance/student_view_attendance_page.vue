@@ -1,40 +1,50 @@
 <template>
-  <head>
+  <div  v-if= "this.$store.state.user.isAuthenticated && userGroup === 'STUDENT'">
+    <head>
   
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  </head>
-  
-  <div class="container">
-  
-  <div class="row">
-  
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h6 class="panel-title">Your Attendnace of Date {{ this.$route.params.date }}</h6>
-  
-      </div>
-      <table class="table table-hover table-striped table-bordered" id="dev-table">
-          <thead>
-            <tr>
-              <th>Student Name</th>
-              <th>Student Roll</th>
-              <th>Student Class</th>
-              <th>Present/Absent</th>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    </head>
+    
+    <div class="container">
+    
+    <div class="row">
+    
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h6 class="panel-title">Your Attendnace of Date {{ this.$route.params.date }}</h6>
+    
+        </div>
+        <table class="table table-hover table-striped table-bordered" id="dev-table">
+            <thead>
+              <tr>
+                <th>Student Name</th>
+                <th>Student Roll</th>
+                <th>Student Class</th>
+                <th>Present/Absent</th>
+              </tr>
+            </thead>
+            <tr v-for="(Student, index) in Students" :key="Student.id">
+                <td>{{ Student.first_name }}</td> 
+                <td>{{ Student.roll }}</td>
+                <td>{{ Student.cl }}</td>
+                <td>{{ Attendance[index].present_status }}</td>
+                
             </tr>
-          </thead>
-          <tr v-for="(Student, index) in Students" :key="Student.id">
-              <td>{{ Student.first_name }}</td> 
-              <td>{{ Student.roll }}</td>
-              <td>{{ Student.cl }}</td>
-              <td>{{ Attendance[index].present_status }}</td>
-               
-          </tr>
 
-        </table>
+          </table>
+      </div>
     </div>
+    <button class="backbutton" onclick="history.back()"> Back</button>
+    </div>
+
   </div>
-  <button class="backbutton" onclick="history.back()"> Back</button>
+
+  <div v-else>
+    <h2 style="margin-left: 40%;">{{ userGroup }} Can't Access this Page </h2>
+
   </div>
+
+  
     
   </template>
 
@@ -45,11 +55,19 @@
           return {                                    
               Date:this.$route.params.date,
               Students: [],             
-              Attendance: []             
+              Attendance: [],
+              userGroup:null             
           }
       },
       mounted() {
           document.title = 'view attendance  | StudyNet'
+          axios.get('courses/user_group/')
+          .then(response => {
+          this.userGroup = response.data.group;
+          })
+          .catch(error => {
+          console.log(error);
+          });
           this.getStudents()
       },
       methods: {       

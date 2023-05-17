@@ -11,7 +11,7 @@
 
 
 <!------ signup page for student by admin(sumit)  ---------->
-<div class="form-content">
+<div class="form-contentt">
 <form v-on:submit.prevent="submitForm">
   
   <div class="container register-form">

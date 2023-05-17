@@ -1,5 +1,6 @@
 <template>
-  <!DOCTYPE html>
+  <div  v-if= "this.$store.state.user.isAuthenticated && userGroup === 'TEACHER'">
+    <!DOCTYPE html>
   <html lang="en" dir="ltr">
   
   <head>
@@ -171,6 +172,14 @@
 </div>
 </body>
 </html>
+  </div>
+
+  <div v-else>
+    <h2 style="margin-left: 40%;">{{ userGroup }} Can't Access this Page </h2>
+
+  </div>
+
+  
 </template>
 
 
@@ -180,6 +189,7 @@
       data() {
           return {             
               user_id: null,
+              userGroup:null
              
           }
       },
@@ -192,6 +202,14 @@
           .catch(error => {
           console.log(error);
           });
+
+          axios.get('courses/user_group/')
+        .then(response => {
+        this.userGroup = response.data.group;
+        })
+        .catch(error => {
+        console.log(error);
+        });
       },
       
   }

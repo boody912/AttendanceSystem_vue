@@ -11,18 +11,17 @@ import Author from '../views/Author.vue'
 import MyAccount from '../views/dashboard/MyAccount.vue'
 import CreateCourse from '../views/dashboard/CreateCourse.vue'
 
-import aboutus from '../views/attendance/aboutus.vue'
+/* import aboutus from '../views/attendance/aboutus.vue' */
 import admin_add_student from '../views/attendance/admin_add_student.vue'
 import admin_add_teacher from '../views/attendance/admin_add_teacher.vue'
-import admin_approve_student from '../views/attendance/admin_approve_student.vue'
-import admin_approve_teacher from '../views/attendance/admin_approve_teacher.vue'
+/* import admin_approve_student from '../views/attendance/admin_approve_student.vue'
+import admin_approve_teacher from '../views/attendance/admin_approve_teacher.vue' */
 import admin_attendance from '../views/attendance/admin_attendance.vue'
-import css_attebdace from '../views/attendance/css_attebdace.vue'
 import admin_fee from '../views/attendance/admin_fee.vue'
 import admin_notice from '../views/attendance/admin_notice.vue'
 import admin_student from '../views/attendance/admin_student.vue'
 import admin_take_attendance from '../views/attendance/admin_take_attendance.vue'
-import admin_teacher_student_card from '../views/attendance/admin_teacher_student_card.vue'
+/* import admin_teacher_student_card from '../views/attendance/admin_teacher_student_card.vue' */
 import admin_teacher from '../views/attendance/admin_teacher.vue'
 import admin_update_student from '../views/attendance/admin_update_student.vue'
 import admin_update_teacher from '../views/attendance/admin_update_teacher.vue'
@@ -34,34 +33,34 @@ import admin_view_student from '../views/attendance/admin_view_student.vue'
 import admin_view_teacher_salary from '../views/attendance/admin_view_teacher_salary.vue'
 import admin_view_teacher from '../views/attendance/admin_view_teacher.vue'
 import adminbase from '../views/attendance/adminbase.vue'
-import adminclick from '../views/attendance/adminclick.vue'
+/* import adminclick from '../views/attendance/adminclick.vue'
 import adminlogin from '../views/attendance/adminlogin.vue'
 import adminsignup from '../views/attendance/adminsignup.vue'
 import contactus from '../views/attendance/contactus.vue'
 import contactussuccess from '../views/attendance/contactussuccess.vue'
 import homebase from '../views/attendance/homebase.vue'
-import index from '../views/attendance/index.vue'
+import index from '../views/attendance/index.vue' */
 
 
 import student_view_attendance_ask_date from '../views/attendance/student_view_attendance_ask_date.vue'
 import student_view_attendance_page from '../views/attendance/student_view_attendance_page.vue'
-import student_wait_for_approval from '../views/attendance/student_wait_for_approval.vue'
+/* import student_wait_for_approval from '../views/attendance/student_wait_for_approval.vue' */
 import studentbase from '../views/attendance/studentbase.vue'
-import studentclick from '../views/attendance/studentclick.vue'
+/* import studentclick from '../views/attendance/studentclick.vue'
 import studentlogin from '../views/attendance/studentlogin.vue'
-import studentsignup from '../views/attendance/studentsignup.vue'
+import studentsignup from '../views/attendance/studentsignup.vue' */
 
 
 import teacher_attendance from '../views/attendance/teacher_attendance.vue'
 import teacher_notice from '../views/attendance/teacher_notice.vue'
-import teacher_take_attendance from '../views/attendance/teacher_take_attendance.vue'
+/* import teacher_take_attendance from '../views/attendance/teacher_take_attendance.vue'
 import teacher_view_attendance_ask_date from '../views/attendance/teacher_view_attendance_ask_date.vue'
 import teacher_view_attendance_page from '../views/attendance/teacher_view_attendance_page.vue'
-import teacher_wait_for_approval from '../views/attendance/teacher_wait_for_approval.vue'
+import teacher_wait_for_approval from '../views/attendance/teacher_wait_for_approval.vue' */
 import teacherbase from '../views/attendance/teacherbase.vue'
-import teacherclick from '../views/attendance/teacherclick.vue'
+/* import teacherclick from '../views/attendance/teacherclick.vue'
 import teacherlogin from '../views/attendance/teacherlogin.vue'
-import teachersignup from '../views/attendance/teachersignup.vue'
+import teachersignup from '../views/attendance/teachersignup.vue' */
 
 import rindex from '../views/recognition/rindex.vue'
 
@@ -127,11 +126,11 @@ const routes = [
   },
 
   /* --------------admin panel----------------- */
-  {
+  /* {
     path: '/attendance/about-us',
     name: 'aboutus',
     component: aboutus
-  },
+  }, */
   {
     path: '/attendance/admin-add-student',
     name: 'admin_add_student',
@@ -142,7 +141,7 @@ const routes = [
     name: 'admin_add_teacher',
     component: admin_add_teacher
   },
-  {
+  /* {
     path: '/attendance/admin-approve-student',
     name: 'admin_approve_student',
     component: admin_approve_student
@@ -151,7 +150,7 @@ const routes = [
     path: '/attendance/admin-approve-teacher',
     name: 'admin_approve_teacher',
     component: admin_approve_teacher
-  },
+  }, */
   {
     path: '/attendance/admin-attendance',
     name: 'admin_attendance',
@@ -177,11 +176,11 @@ const routes = [
     name: 'admin_take_attendance',
     component: admin_take_attendance
   },
-  {
+  /* {
     path: '/attendance/admin-teacher-student-card',
     name: 'admin_teacher_student_card',
     component: admin_teacher_student_card
-  },
+  }, */
   {
     path: '/attendance/admin-teacher',
     name: 'admin_teacher',
@@ -239,7 +238,7 @@ const routes = [
   /*   beforeEnter: requireAuth */
 
   },
-  {
+  /* {
     path: '/attendance/admin-click',
     name: 'adminclick',
     component: adminclick
@@ -273,7 +272,7 @@ const routes = [
     path: '/attendance/index',
     name: 'index',
     component: index
-  },
+  }, */
   
 
   /*---------studentpanel-----------*/
@@ -288,17 +287,17 @@ const routes = [
     name: 'student_view_attendance_page',
     component: student_view_attendance_page
   },
-  {
+  /* {
     path: '/attendance/student-wait-for-approval',
     name: 'student_wait_for_approval',
     component: student_wait_for_approval
-  },
+  }, */
   {
     path: '/attendance/student-base/:id/',
     name: 'studentbase',
     component: studentbase
   },
-  {
+  /* {
     path: '/attendance/student-click',
     name: 'studentclick',
     component: studentclick
@@ -312,7 +311,7 @@ const routes = [
     path: '/attendance/student-sign-up',
     name: 'studentsignup',
     component: studentsignup
-  },
+  }, */
   /* ----------teacher panel------------- */
   {
     path: '/attendance/teacher-attendance',
@@ -325,7 +324,7 @@ const routes = [
     name: 'teacher_notice',
     component: teacher_notice
   },
-  {
+  /* {
     path: '/attendance/teacher-take-attendance',
     name: 'teacher_take_attendance',
     component: teacher_take_attendance
@@ -344,13 +343,13 @@ const routes = [
     path: '/attendance/teacher-wait-for-approval',
     name: 'teacher_wait_for_approval',
     component:teacher_wait_for_approval
-  },
+  }, */
   {
     path: '/attendance/teacher-base/:id/',
     name: 'teacherbase',
     component:teacherbase
   },
-  {
+  /* {
     path: '/attendance/teacher-click',
     name: 'teacherclick',
     component:teacherclick
@@ -364,7 +363,7 @@ const routes = [
     path: '/attendance/teacher-sign-up',
     name: 'teachersignup',
     component:teachersignup
-  },
+  }, */
 
     /* ----------teacher panel------------- */
     {

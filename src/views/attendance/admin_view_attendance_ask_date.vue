@@ -1,5 +1,5 @@
 <template>
-<div  v-if= "this.$store.state.user.isAuthenticated && userGroup === 'ADMIN'">
+<div v-if= "this.$store.state.user.isAuthenticated && userGroup === 'ADMIN' || userGroup === 'TEACHER'">
 <head> 
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">  
 </head>

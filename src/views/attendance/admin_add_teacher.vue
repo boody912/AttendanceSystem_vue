@@ -7,7 +7,7 @@
 </head>
 
 <!------ signup page for teacher by admin(sumit)  ---------->
-<div class="form-content">
+<div class="form-contentt">
 <form v-on:submit.prevent="submitForm">
   <div class="container register-form">
     <div class="form">
@@ -159,15 +159,16 @@
     .note {
       text-align: center;
       height: 80px;
-       background: -webkit-linear-gradient(left, #343a40, #607d8b);
+      background: -webkit-linear-gradient(left, #343a40, #607d8b);
       color: #fff;
       font-weight: bold;
       line-height: 80px;
     }
 
-    .form-content {
+    .form-contentt {
       padding: 5%;
       border: 1px solid #ced4da;
+      background: #fff;
       margin-bottom: 2%;
     }
 

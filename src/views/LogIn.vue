@@ -7,7 +7,7 @@
     </div>
 
     <section class="section">
-        <div class="container">
+        <div class="container form-content">
             <div class="columns">
                 <div class="column is-4 is-offset-4">
                     <form v-on:submit.prevent="submitForm">
@@ -36,14 +36,14 @@
 
                         <div class="field">
                             <div class="control">
-                                <button class="button is-dark">Log in</button>
+                                <button class="button is-success">Log in</button>
                             </div>
                         </div>
                     </form>
 
                     <hr>
 
-                    Or <router-link to="/sign-up">click here</router-link> to sign up!
+                    Or <router-link  to="/sign-up">click here</router-link> to sign up!
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 <template>
-<div  v-if= "this.$store.state.user.isAuthenticated && userGroup === 'ADMIN'">
+<div v-if= "this.$store.state.user.isAuthenticated && userGroup === 'ADMIN' || userGroup === 'TEACHER'">
   <head>
   
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -48,7 +48,7 @@
         </table>
         <div class="form-group">
             <label for="date-input">Date:</label>
-            <input type="date" id="date-input" v-model="date" class="form-control">
+            <input type="date" id="date-input" required v-model="date" class="form-control">
         </div>
         <button class="btn btn-success" @click="submitForm(index)">Submit</button>
       </div>

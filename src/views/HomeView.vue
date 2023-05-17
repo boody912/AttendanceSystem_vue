@@ -41,9 +41,18 @@
             </div>
           </div>
 
-          <div class="column is-12 has-text-centered">
-            <a href="/sign-up" class="button is-info is-size-3 mt-6 mb-6">Click to get started</a>
-          </div>
+          <!-- <div v-if= "this.$store.state.user.isAuthenticated "> -->
+            <template v-if= "!this.$store.state.user.isAuthenticated ">
+
+              <div class="column is-12 has-text-centered" >
+                <a href="/sign-up" class="button is-info is-size-3 mt-6 mb-6">Click to get started</a>
+              </div>
+
+            </template>
+            
+
+          <!-- </div> -->
+          
 
           <hr>
 
@@ -52,6 +61,7 @@
               v-for="course in courses"
               v-bind:key="course.id"
           >
+          <br><br><br>
               <CourseItem :course="course" />
           </div>
         </div>

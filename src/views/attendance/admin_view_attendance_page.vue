@@ -1,5 +1,5 @@
 <template>
-  <div  v-if= "this.$store.state.user.isAuthenticated && userGroup === 'ADMIN'">
+  <div v-if= "this.$store.state.user.isAuthenticated && userGroup === 'ADMIN' || userGroup === 'TEACHER'">
 <head>
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
