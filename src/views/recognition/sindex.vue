@@ -1,18 +1,20 @@
 <template>
     
-    <div id="app">
-      <video ref="video" width="640" height="480"></video>
-      <canvas ref="canvas" width="640" height="480" style="display:none;"></canvas>
-      <!-- <div class="field">
-          <input type="number" class="input" placeholder="Roll" required  v-model="roll">
-      </div> -->
-      <button v-on:click="captureImage" >Capture Image</button>
-      <div>
+      <div id="app">
+        <video ref="video" width="640" height="480"></video>
+        <canvas ref="canvas" width="640" height="480" style="display:none;"></canvas>
+       
+        <button class="capture-btn" v-on:click="captureImage">Capture Image</button>
+        <div>
+          
+        </div>
         
       </div>
-      
-    </div>
-    <button class="backbutton" onclick="history.back()"> Back</button>
+      <button class="backbutton" onclick="history.back()"> Back</button>
+    
+
+ 
+    
 
 </template>
 
@@ -27,14 +29,15 @@ import axios from 'axios';
         capturedImage: null,
         video: null,
         canvas: null,
-        roll:''
+        roll:'',
+        userGroup: null
         
       };
     },
     mounted() {
         this.video = this.$refs.video;
         this.canvas = this.$refs.canvas;
-        this.startCamera();
+        this.startCamera();       
       
     },
   
@@ -109,8 +112,23 @@ import axios from 'axios';
   overflow: hidden;
 }
 
+.capture-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 270px;
+  background-color: rgb(13, 202, 13);
+  color: white;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 5px;
+}
+.capture-btn:hover {
+  background-color: darkgreen;
+}
+
 video {
   width: 100%;
   height: 500px;
 }
 </style>
+

@@ -62,7 +62,8 @@ import teacherbase from '../views/attendance/teacherbase.vue'
 import teacherlogin from '../views/attendance/teacherlogin.vue'
 import teachersignup from '../views/attendance/teachersignup.vue' */
 
-import rindex from '../views/recognition/rindex.vue'
+import sindex from '../views/recognition/sindex.vue'
+import tindex from '../views/recognition/tindex.vue'
 
 
 
@@ -368,8 +369,13 @@ const routes = [
     /* ----------teacher panel------------- */
     {
       path: '/recognition/index/:roll/:class/',
-      name: 'rindex',
-      component:rindex
+      name: 'sindex',
+      component:sindex
+    },
+    {
+      path: '/recognition/teacher-index/',
+      name: 'tindex',
+      component:tindex
     },
 
 
