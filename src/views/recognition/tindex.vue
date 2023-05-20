@@ -1,16 +1,18 @@
 <template>
     <div id="app">
+      <button class="start-camera-btn" v-on:click="startCamera" :disabled="cameraStarted" v-if="!hideStartCamera">Start Camera</button>
+      <div class="file-upload-container" v-if="!hideStartCamera">
+        <input class="file-upload" type="file" @change="handleFileUpload">
+        <span id="file-name" class="file-name" ></span>
+      </div>
+      <button class="capture-btn" v-on:click="Supmit" v-if="!hideStartCamera" >Supmit</button>
       <video ref="video" width="640" height="480"></video>
       <canvas ref="canvas" width="640" height="480" style="display:none;"></canvas>
-      <button class="start-camera-btn" v-on:click="startCamera" :disabled="cameraStarted" v-if="!hideStartCamera">Start Camera</button>
-      <!-- <button class="upload-pic"  v-if="!hideStartCamera">Upload Picture</button> -->
-      <!-- <input class="file-upload" type="file" @change="handleFileUpload">
-      <p id="file-name"></p> -->
-      <div class="file-upload-container">
-        <input class="file-upload" type="file" @change="handleFileUpload">
-        <span id="file-name" class="file-name"></span>
+      <div class="column">
+        <button class="capture-btn" v-on:click="captureImage" :disabled="!cameraStarted" v-if="showCaptureButton">Capture Image</button>
+        
       </div>
-      <button class="capture-btn" v-on:click="captureImage" :disabled="!cameraStarted" v-if="showCaptureButton">Capture Image</button>
+      
     </div>
     <button class="backbutton" onclick="history.back()"> Back</button>
   </template>
@@ -24,6 +26,7 @@
         capturedImage: null,
         video: null,
         canvas: null,
+        imagee: null,
         cameraStarted: false,
         showCaptureButton: false,
         hideStartCamera: false
@@ -36,10 +39,14 @@
     methods: {
         handleFileUpload(event) {
         const file = event.target.files[0];
+        this.imagee = event.target.files[0];
         const fileName = file.name;
         const fileNameEl = document.getElementById('file-name');
         fileNameEl.textContent = fileName;
-        },
+        }, 
+        /* handleFileUploadd(event) {
+              this.imagee = event.target.files[0];
+          }, */
       beforeDestroy() {
         if (this.stream) {
           const tracks = this.stream.getTracks();
@@ -87,17 +94,32 @@
         if (self.capturedImage) {
           const formData = new FormData();
           formData.append('image', self.capturedImage);
-          formData.append('roll', this.$route.params.roll);
-          formData.append('class', this.$route.params.class);
+        //   formData.append('imagee', this.imagee);
+        //   formData.append('roll', this.$route.params.roll);
+        //   formData.append('class', this.$route.params.class);
          axios
-            .post(`/recognition/upload_image/`, formData)                   
+            .post(`/recognition/take_multi_attend/`, formData)                   
             .then(response => {  
               this.beforeDestroy();                
               this.$router.go(-1);
             })           
         }
       },
-    },
+      Supmit: function() {     
+          const formData = new FormData();
+         
+          formData.append('imagee', this.imagee);
+        //   formData.append('roll', this.$route.params.roll);
+        //   formData.append('class', this.$route.params.class);
+         axios
+            .post(`/recognition/take_multi_att/`, formData)                   
+            .then(response => {  
+              this.beforeDestroy();                
+              this.$router.go(-1);
+            })           
+        }
+
+      },    
   };
   </script>
   
@@ -107,7 +129,7 @@
   /* .containerr {
     margin-top: 50px;
   } */
-  .container {
+  .containerr {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -135,6 +157,7 @@
   .capture-btn {
     display: block;
     margin: 0 auto;
+    margin-top: 10px;
     padding: 10px 270px;
     background-color: rgb(13, 202, 13);
     color: white;
@@ -149,6 +172,7 @@
   .start-camera-btn {
     display: block;
     margin: 0 auto;
+    margin-top: 150px;
     padding: 10px 250px;
     background-color: rgb(0, 0, 255);
     color: white;
