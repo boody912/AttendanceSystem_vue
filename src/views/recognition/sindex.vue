@@ -5,19 +5,11 @@
         <canvas ref="canvas" width="640" height="480" style="display:none;"></canvas>
        
         <button class="capture-btn" v-on:click="captureImage">Capture Image</button>
-        <div>
-          
-        </div>
-        
+              
       </div>
-      <button class="backbutton" onclick="history.back()"> Back</button>
-    
-
- 
-    
+      <button class="backbutton" onclick="history.back()"> Back</button>  
 
 </template>
-
 
 
 <script>
@@ -30,7 +22,9 @@ import axios from 'axios';
         video: null,
         canvas: null,
         roll:'',
-        userGroup: null
+        userGroup: null,
+        success: null,
+        recognized: null,
         
       };
     },
@@ -87,11 +81,37 @@ import axios from 'axios';
                 formData.append('roll', this.$route.params.roll);
                 formData.append('class', this.$route.params.class);
             axios
-              .post(`/recognition/upload_image/`, formData)                   
-              .then(response => {  
-                this.beforeDestroy();                
-                this.$router.go(-1);
-               })
+              .post(`/recognition/upload_image/`, formData)                                
+              .then(response => {
+                  if (response.data.success && response.data.recognized) {
+                    alert('Image recognized successfully!')
+                    // let alertElement = document.getElementsByClassName("alert")[0]
+                    // alertElement.classList.add('my-alert', 'my-alert-success')
+                    this.beforeDestroy();                
+                    this.$router.go(-1);
+                  } else if (response.data.success && !response.data.recognized) {
+                    alert('Image not recognized. Please try again.')
+                    // let alertElement = document.getElementsByClassName("alert")[0]
+                    // alertElement.classList.add('my-alert', 'my-alert-danger')
+                    this.beforeDestroy();                
+                    this.$router.go(-1);
+                  } else if (!response.data.success && !response.data.recognized) {
+                    alert('No face detected.')
+                    // let alertElement = document.getElementsByClassName("alert")[0]
+                    // alertElement.classList.add('my-alert', 'my-alert-danger')
+                    this.beforeDestroy();                
+                    this.$router.go(0);
+                  } else {
+                    Alert.alert(response.data.error)
+                    // let alertElement = document.getElementsByClassName("alert")[0]
+                    // alertElement.classList.add('my-alert', 'my-alert-danger')
+                    this.beforeDestroy();                
+                    this.$router.go(-1);
+                  }
+                })
+              .catch(error => {
+                  console.error(error)
+              })
             
           }
         },
@@ -130,5 +150,24 @@ video {
   width: 100%;
   height: 500px;
 }
+
+/* .my-alert {
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.my-alert-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.my-alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+} */
 </style>
 

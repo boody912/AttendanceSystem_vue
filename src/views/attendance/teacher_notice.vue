@@ -42,8 +42,10 @@
       class="fas fa-desktop">
       <span>  MY Account</span>
       </a>
-      <router-link to="/attendance/teacher-attendance" class="fas fa-address-card"><span>Attendance</span></router-link>
-      <router-link to="/attendance/teacher-notice" class="fas fa-bullhorn"><span>Notice</span></router-link>
+      <router-link to="/attendance/teacher-attendance" class="fas fa-address-card"><span> Attendance</span></router-link>
+      <router-link to="/attendance/teacher-notice" class="fas fa-bullhorn"><span> Notice</span></router-link>
+      <router-link to="/recognition/teacher-index/" class="fas fa-clipboard-check"><span> Take Attendance</span></router-link>
+
 
 
     </div>
