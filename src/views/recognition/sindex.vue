@@ -85,26 +85,17 @@ import axios from 'axios';
               .then(response => {
                   if (response.data.success && response.data.recognized) {
                     alert('Image recognized successfully!')
-                    // let alertElement = document.getElementsByClassName("alert")[0]
-                    // alertElement.classList.add('my-alert', 'my-alert-success')
                     this.beforeDestroy();                
                     this.$router.go(-1);
                   } else if (response.data.success && !response.data.recognized) {
-                    alert('Image not recognized. Please try again.')
-                    // let alertElement = document.getElementsByClassName("alert")[0]
-                    // alertElement.classList.add('my-alert', 'my-alert-danger')
-                    this.beforeDestroy();                
+                    alert('Image not recognized. Please try again.')                    
                     this.$router.go(-1);
                   } else if (!response.data.success && !response.data.recognized) {
-                    alert('No face detected.')
-                    // let alertElement = document.getElementsByClassName("alert")[0]
-                    // alertElement.classList.add('my-alert', 'my-alert-danger')
+                    alert('No face detected.')                   
                     this.beforeDestroy();                
                     this.$router.go(0);
                   } else {
-                    Alert.alert(response.data.error)
-                    // let alertElement = document.getElementsByClassName("alert")[0]
-                    // alertElement.classList.add('my-alert', 'my-alert-danger')
+                    Alert.alert(response.data.error)                  
                     this.beforeDestroy();                
                     this.$router.go(-1);
                   }
@@ -151,23 +142,5 @@ video {
   height: 500px;
 }
 
-/* .my-alert {
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.my-alert-success {
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-  color: #155724;
-}
-
-.my-alert-danger {
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
-  color: #721c24;
-} */
 </style>
 
